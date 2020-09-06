@@ -1,0 +1,43 @@
+<html>
+    <head>
+      <title>InterviewSchedulerApp</title>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script>
+      $(function() {
+          $( ".dtpick" ).datepicker();
+      });
+      </script>
+  
+    </head>
+    <body>
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout')}}">Logout</a>
+            {% endif %}
+            <a href="{{ url_for('book')}}">Schedule Interviews</a>
+            <a href="{{ url_for('edit')}}">Update Interviews</a>
+            <a href="{{ url_for('interviewbooker')}}">List Interviews</a>
+
+            {% if current_user.is_authenticated %}
+            <div align="right">Log in as: {{current_user.fullname}}</div>
+            {% endif %}
+        </div>
+        
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
