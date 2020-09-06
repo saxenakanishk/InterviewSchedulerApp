@@ -67,6 +67,7 @@ class EditinterviewForm(FlaskForm):
         interview = Interview.query.filter_by(title=self.title.data).first()
         if interview is not None:  # username exist
             raise ValidationError('Please use another interview title.')
+    '''
 
     def validate_students(self, students):
         s = Student.query.filter_by(email=self.students.data).first()
@@ -77,7 +78,6 @@ class EditinterviewForm(FlaskForm):
         i = User.query.filter_by(email=self.interviewee.data).first()
         if i is None:
             raise ValidationError("Email id is not present in the database")
-    '''
 
     def validate_date(self, date):
         if self.date.data < datetime.datetime.now().date():

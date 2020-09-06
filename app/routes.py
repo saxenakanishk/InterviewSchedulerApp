@@ -56,7 +56,19 @@ def book():
             if (form.startTime.data < interviewcollision.endTime and (
                     form.startTime.data + form.duration.data) > interviewcollision.startTime):
                 flash(
-                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked')
+                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked by {Student.query.filter_by(email=interviewcollision.studentEmail).first().email}.')
+                return redirect(url_for('book'))
+
+        interviewcollisions2 = Interview.query.filter_by(
+            date=datetime.combine(form.date.data, datetime.min.time())).filter_by(
+            bookerEmail=form.interviewee.data).all()
+        print(len(interviewcollisions2))
+        for interviewcollision in interviewcollisions2:
+            # [a, b] overlaps with [x, y] iff b > x and a < y
+            if (form.startTime.data < interviewcollision.endTime and (
+                    form.startTime.data + form.duration.data) > interviewcollision.startTime):
+                flash(
+                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked by {User.query.filter_by(email=interviewcollision.bookerEmail).first().email}.')
                 return redirect(url_for('book'))
 
 
@@ -106,15 +118,26 @@ def edit():
             if (form.startTime.data < interviewcollision.endTime and (
                     form.startTime.data + form.duration.data) > interviewcollision.startTime):
                 flash(
-                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked')
-                return redirect(url_for('book'))
+                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked by {Student.query.filter_by(email=interviewcollision.studentEmail).first().email}.')
+                return redirect(url_for('edit'))
+
+        interviewcollisions2 = Interview.query.filter_by(
+            date=datetime.combine(form.date.data, datetime.min.time())).filter_by(bookerEmail=form.interviewee.data).all()
+        print(len(interviewcollisions2))
+        for interviewcollision in interviewcollisions2:
+            # [a, b] overlaps with [x, y] iff b > x and a < y
+            if (form.startTime.data < interviewcollision.endTime and (
+                    form.startTime.data + form.duration.data) > interviewcollision.startTime):
+                flash(
+                    f'The time from {interviewcollision.startTime} to {interviewcollision.endTime} is already booked by {User.query.filter_by(email=interviewcollision.bookerEmail).first().email}.')
+                return redirect(url_for('edit'))
 
 
         endTime = form.startTime.data + form.duration.data
 
-        interview=Interview.query.filter_by(bookerEmail=form.interviewee.data).first()
+        interview=Interview.query.filter_by(title=form.title.data).first()
 
-        interview.title=form.title.data
+        #interview.title=form.title.data
         interview.date=form.date.data
         interview.startTime=form.startTime.data
         interview.endTime=endTime
