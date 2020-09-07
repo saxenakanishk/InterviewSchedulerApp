@@ -14,8 +14,15 @@
             
             <dl>
                 {{ render_field(form.students) }}
+                {{ form.hidden_tag() }}
+                {% for error in form.students.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
                 {{ render_field(form.interviewee) }}
-
+                {{ form.hidden_tag() }}
+                {% for error in form.interviewee.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
             </dl>
                 {{ form.date.label}}
                 {{ form.date(class="dtpick") }}
