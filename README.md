@@ -3,7 +3,8 @@ Simple app to schedule interviews
 
 ## Requirements
 1. Python 3.6
-2. SQLite3
+2. SQLite3 [Here](https://www.sqlite.org/download.html)
+3. Recommend SQLite browser [Available](https://sqlitebrowser.org/)
 
 ## Setup
 1. Install flask and packages
@@ -49,4 +50,4 @@ python populate.py
 $ flask run
 ```
 
-2. Open the app in browser
+2. Open the app in browser: [localhost](http://127.0.0.1:5000/)
