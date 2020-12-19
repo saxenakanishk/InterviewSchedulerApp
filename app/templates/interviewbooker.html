@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>List Interviews</h1>
-<table border="1" cellpadding=3>
-    <tr>
-        <th>Interview</th>
-        <th>Student</th>
-        <th>Interviewee</th>
-        <th>Date</th>
-        <th>Time</th>
-    </tr>
-{% for interview in interviews %}
-    <tr>
-        <td>{{ interview.title }}</td>
-        <td>{{ interview.studentEmail}}</td>
-        <td>{{ interview.bookerEmail}}</td>
-        <td>{{ interview.date}}</td>
-        <td>{{ interview.time}}</td>
-    </tr>
-{% endfor %}
-</table>
+    <h1>List Interviews</h1>
+    <table class="table table-striped table-hover" border="1" cellpadding="3">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Interview</th>
+                <th scope="col">Student</th>
+                <th scope="col">Interviewee</th>
+                <th scope="col">Date(YYYY/MM/DD)</th>
+                <th scope="col">Time</th>
+            </tr>
+        <thead>
+
+        {% for interview in interviews %}
+            <tr>
+                <th scope="row">{{ loop.index0 + 1 }}</th>
+                <td>{{ interview.title }}</td>
+                <td>{{ interview.studentEmail}}</td>
+                <td>{{ interview.bookerEmail}}</td>
+                <td>{{ interview.date}}</td>
+                <td>{{ interview.time}}</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

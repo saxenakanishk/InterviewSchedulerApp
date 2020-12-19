@@ -1,10 +1,12 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-{% if current_user.is_anonymous %}
-<h1>Hi, Welcome to Interview Scheduling App. Please Log in.</h1>
-{% else %}
-<h1>Hi, {{ current_user.username }}!</h1>
-{% endif %}
+    {% if current_user.is_anonymous %}
+        <marquee style="font-size:50px;font-weight:300;color:#3399ff" width="100%" direction="left" height="300px" behavior="alternate">
+            Hi, Welcome to Interview Scheduling App. Please Log in.
+        </marquee>
+            
+    {% else %}
+        <h1>Hi, {{ current_user.username }}!</h1>
+    {% endif %}
 {% endblock %}
