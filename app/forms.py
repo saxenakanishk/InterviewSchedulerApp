@@ -20,7 +20,7 @@ class BookinterviewForm(FlaskForm):
     interviewee= StringField('Interviewers Email', validators=[DataRequired()] )
     date = DateField('Choose date', format="%m/%d/%Y", validators=[DataRequired()])
     startTime = SelectField('Choose starting time(in 24hr expression)', coerce=int,
-                            choices=[(i, i) for i in range(7, 20)])
+                            choices=[(i, i) for i in range(9, 18)])
     duration = SelectField('Choose duration of the interview(in hours)', coerce=int,
                            choices=[(i, i) for i in range(1, 6)])
 
@@ -55,7 +55,7 @@ class EditinterviewForm(FlaskForm):
     interviewee= StringField('Interviewers Email', validators=[DataRequired()] )
     date = DateField('Choose date', format="%m/%d/%Y", validators=[DataRequired()])
     startTime = SelectField('Choose starting time(in 24hr expression)', coerce=int,
-                            choices=[(i, i) for i in range(9, 19)])
+                            choices=[(i, i) for i in range(9, 18)])
     duration = SelectField('Choose duration of the interview(in hours)', coerce=int,
                            choices=[(i, i) for i in range(1, 6)])
 
@@ -66,8 +66,8 @@ class EditinterviewForm(FlaskForm):
     def validate_title(self, title):
         interview = Interview.query.filter_by(title=self.title.data).first()
         if interview is not None:  # username exist
-            raise ValidationError('Please use another interview title.')
-    '''
+            raise ValidationError('Title does not exist')
+    '''    
 
     def validate_students(self, students):
         s = Student.query.filter_by(email=self.students.data).first()
